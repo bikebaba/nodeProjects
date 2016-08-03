@@ -1,0 +1,23 @@
+{
+    "SNS": {"PlatformApplicationArnIOS" : "arn:aws:sns:us-east-1:311651137993:app/APNS/GP-Apple-App-Test",
+    	    "PlatformApplicationArnAndroid" : "arn:aws:sns:us-east-1:311651137993:app/GCM/GP-Android-App-Test",
+            "_PlatformApplicationArnAndroid" : "arn:aws:sns:us-east-1:311651137993:app/GCM/GP-Android-App"
+    },
+    "oldauth": {
+        "entryPoint": "https://washposttst.okta.com/home/thewashingtonposttst_guidepostmobiletest_1/0oa156bzlkl6rU6k20h8/59569",
+        "cert": "MIIDpjCCAo6gAwIBAgIGAUtCAYplMA0GCSqGSIb3DQEBBQUAMIGTMQswCQYDVQQGEwJVUzETMBEGA1UECAwKQ2FsaWZvcm5pYTEWMBQGA1UEBwwNU2FuIEZyYW5jaXNjbzENMAsGA1UECgwET2t0YTEUMBIGA1UECwwLU1NPUHJvdmlkZXIxFDASBgNVBAMMC3dhc2hwb3N0dHN0MRwwGgYJKoZIhvcNAQkBFg1pbmZvQG9rdGEuY29tMB4XDTE1MDEzMTIxNTgzMloXDTQ1MDEzMTIxNTkzMlowgZMxCzAJBgNVBAYTAlVTMRMwEQYDVQQIDApDYWxpZm9ybmlhMRYwFAYDVQQHDA1TYW4gRnJhbmNpc2NvMQ0wCwYDVQQKDARPa3RhMRQwEgYDVQQLDAtTU09Qcm92aWRlcjEUMBIGA1UEAwwLd2FzaHBvc3R0c3QxHDAaBgkqhkiG9w0BCQEWDWluZm9Ab2t0YS5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCTVR54niZxlw06yxrXUTZW/LyNU67WNXwMhjFXM3n+lbebKJYeZyKA5A1HSYTzhXOJey/oe18Y60D16g+fYCUS8XF0H5kV/7dHgV8BTKai7q5Auw/iC5FNuQ3N3v+BuW4w8yl8mftyCBGGX2aNOvAVH7qiWoYC7Yj5M1Hw4xqGOxBcJpNyM0IEGWXmBead5+m7F5cJUnmZ3z72o+zu3ClBTM5r5wBDorumvpZTnqFVGgkSSIOpbIhmpQQaizq2wvaQcWForPrqBb+P7uKp+ttTtlaMLScb2Aw5n0yOIAYQqUXIpUsgAXVff93r/oqOXysTurhZuId6F+yoRHAEBqzLAgMBAAEwDQYJKoZIhvcNAQEFBQADggEBAFJYpoUf7vWGE9eZzlttkK8A1uj71qgyhbyGngwtD8z+RooiFZasvLMwgnf5o3QxLUtoMR+hvcKdouevoxwuYzmhlzcE2YyRu0aUBUTKBsp+cxqoGvwQl12xlpnZJVU8VFIbYeXF2QtNtHpoaJHRMirHCseeTkWWNJLxU1C0hpebXbH/32upTT/QU1/O3a2jbxRSezNEovrcbE+dEx5YvKK3uM8eLIQkXE18Vv7cjPVqFX7Nf5UC0Qnj6lcLoI2NcbdZv7mcspdePgdEPGK75E9eElHuphNVFtKaJHNIoaIY/APQRnGdlWEjJ8NVRknapZcYd3wwjnQ2ViQiR5QdAOU=",
+        "redirectSite": "localhost",
+        "port": "3000"
+    },
+    "auth": {
+        "entryPoint": "https://washpost.okta.com/app/thewashingtonpostandcompanies_guidepostmobiletest_2/exk16jjq4zh1EVhQ00h8/sso/saml",
+        "cert": "MIIDoDCCAoigAwIBAgIGAUtCJY9SMA0GCSqGSIb3DQEBBQUAMIGQMQswCQYDVQQGEwJVUzETMBEGA1UECAwKQ2FsaWZvcm5pYTEWMBQGA1UEBwwNU2FuIEZyYW5jaXNjbzENMAsGA1UECgwET2t0YTEUMBIGA1UECwwLU1NPUHJvdmlkZXIxETAPBgNVBAMMCHdhc2hwb3N0MRwwGgYJKoZIhvcNAQkBFg1pbmZvQG9rdGEuY29tMB4XDTE1MDEzMTIyMzc1MloXDTQ1MDEzMTIyMzg1MlowgZAxCzAJBgNVBAYTAlVTMRMwEQYDVQQIDApDYWxpZm9ybmlhMRYwFAYDVQQHDA1TYW4gRnJhbmNpc2NvMQ0wCwYDVQQKDARPa3RhMRQwEgYDVQQLDAtTU09Qcm92aWRlcjERMA8GA1UEAwwId2FzaHBvc3QxHDAaBgkqhkiG9w0BCQEWDWluZm9Ab2t0YS5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQChEbxGNLUPDstLahtb0JcQI95vEnhzq5wve6Z94drhybffAh0M44JDajMTYtwv3TUXN8ydHDpi42A+TWy3cl5hFvPwOMBmmmqoxIa98FHgaYaviOMnX4yN6Lc41+Aa4c7MPtcBjMNaPpYFmdHS6uDsYDgU0ToViJDllBWu7D6UAKRGSf0YTJubBjjtFUpw1hnn/o0k/S1HkNeEZmO2erslkZRcxGgSjqG2jI5S6w+vccW18IJmrMuoZd56bdrED1fwx27m9cDkopk3+R6BHUYeQIip5jatBsrxMEebr8Dw5XG0X2iiLyTSM8CegsH1zGQSYAK8dBI94ec/PcgEtJ1xAgMBAAEwDQYJKoZIhvcNAQEFBQADggEBAJAWQu7T7OEPsoUE4gdHWUE7VLdTdo9Q+MPcqH6NIxf8SyB7mNmOxu3rpwMnSf7LkajLiqQQ16kPCfNNFIyQmfwR0sONeP6MM4Zb5pGQuBfhYL/49sKLtXxIQIzWaxM2G0bie7lEt1UaYIbX3qMTgAUqT/QATpvUIB11qwxxsSit4meZYiE0RMpPyBGXvC8AdOaEB37tr0ie+OSEX0sHmwvrKM9bR1mDSTbDHgcXxR5OTIfCHLZEOpBYwVLjOsyLV/6tDCU7lc6eVsfMoFkNIgxc57x/TlCTt+FBU44daeCcxQfIWbBSDlrqQWk5WG0sZurSAxrlHNR8f6ObzoKbQK0=",
+        "redirectSite": "localhost",
+        "port": "3000"
+    },
+    "elb" : "guidepost-test-202976085.us-east-1.elb.amazonaws.com",
+    "photos" : {
+        "gp-emp-pics" : "twp-gp-emp-pics-testbucket",
+        "gp-kudos-pics" : "twp-gp-kudosphotos-testbucket"
+    }
+}
