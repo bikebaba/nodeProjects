@@ -15,21 +15,45 @@ var redirectUri = "http://localhost:8000/authorize";
 
 // The scopes the app requires
 var scopes = [ "openid",
-    "offline_access",
     "profile",
     "https://outlook.office.com/mail.readwrite",
-    "https://outlook.office.com/calendars.readwrite" ];
+    "https://outlook.office.com/calendars.readwrite",
+    "offline_access"];
 
 function getAuthUrl() {
     var returnVal = oauth2.authCode.authorizeURL({
         redirect_uri: "http://localhost:8000/authorize",
-        scope: scopes.join(" ")
+        scope: scopes.join()
     });
     console.log("Generated auth url: " + returnVal);
     return returnVal;
 }
 
+function getNewToken(req, res){
+    var request = require("request");
+    console.log("IN getnewtoken");
+    console.log(req.query.refresh_token);
+    var options = {method: 'POST',
+        url: 'https://login.microsoftonline.com/common/oauth2/v2.0/token',
+        //url : 'https://login.windows.net/common/oauth2/token',
+        form:
+        {grant_type: 'refresh_token',
+            //refresh_token: 'AAABAAAAiL9Kn2Z27UubvWFPbm0gLYrVyYqIHJkS-Aq8MnoCdMJQkLyFJRDXOuz-M98HfUATtVAwBO2AG40xZXBrb7jcS1Bq2ZmQoVc-IHtWcJ7TQlrcWqojPwHuKMKrYlE7S3xqZT9x8-LZQ2QxNrcg5ZW5c9Vly1H_4sIYvkVjd8nNBkE7lC8vI89LnhOi44_P-4y-ZBPuAsr8zgccD6bABQQvRAauEE6L_kkuiWw-U-JfwsSTC_CltdyNINbPO7L-uIzJMaj-0Tblt_3kcmMELaaOXjlOf-1xZ8y9NnQRD2ugxZOsrRpo0BopftaxJNl6Aeac9ZQPFvyZK3jNcs5I6rQsZzokjsahRX_uyXqntfqm8ftGaufp2GOa9QD2XdHK8WmJsniUOlFIpWLdAhZv5tHJMAJSZ61fkNRrcf_ayiSp_Ud5rSdW5QBGlmgeYgs8DS-mN-ZpkHi8gqKx_ZRsGNUQnaade3d3u5_T-t71pxZ093uSCwwTeRsAixA0vIxPgj4QMs1aqIghij8ZrYuzo0LkW9nKBYsedIm5FXN1ugr1cDz1OhoJfk220y55-Jhdb55jc4iwDZPzImlfOhivIaKi5MRTUzRuD9lZUMzo69aXvecgAA',
+            refresh_token: req.query.refresh_token,
+            client_id: credentials.clientID, //'0aca55fd-3cd9-40a6-aa78-ae6fcd1ab359',
+            client_secret: credentials.clientSecret //'F7dKfSa372ryjyskvxbQS4C9FAJVBNnfRIHwdOQLd2w='
+        }};
 
+    //console.log("Req:   " + util.inspect(req.headers["x-forwarded-for"], false, null));
+    //console.log("Res:   " + JSON.stringify(res));
+    request(options, function(error, response, body) {
+        if (error)
+            throw new Error(error);
+        res.setHeader('Content-Type', 'application/json');
+        res.send(body);
+    });
+
+}
 function getTokenFromCode(auth_code, callback, response) {
     var token;
     //scopes[4] = "offline_access";
@@ -40,7 +64,7 @@ function getTokenFromCode(auth_code, callback, response) {
         scope: scopes.join(" ")
     }, function (error, result) {
         if (error) {
-            console.log("Access token error: ", error.message);
+            console.log("Access token error: ", error);
             callback(response, error, null);
         }
         else {
@@ -69,56 +93,9 @@ function getEmailFromIdToken(id_token) {
     return jwt.preferred_username
 }
 
-//gets a new token given a refresh token
-function getTokenFromRefreshToken(token, callback) {
-    var payload = 'grant_type=refresh_token' +
-        '&redirect_uri=' + credentials.redirect_url +
-        '&client_id=' + credentials.client_id +
-        '&client_secret=' + credentials.client_secret +
-        '&refresh_token=' + token +
-        '&scope=' + appDetails.scopes;
-
-    postJson('login.microsoftonline.com',
-        '/common/oauth2/v2.0/token',
-        payload,
-        function(token) {
-            callback(token);
-        });
-};
-
-//performs a generic http POST and returns JSON
-function postJson(host, path, payload, callback) {
-    var options = {
-        host: host,
-        path: path,
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Content-Length': Buffer.byteLength(payload, 'utf8')
-        }
-    };
-
-    var reqPost = https.request(options, function(res) {
-        var body = '';
-        res.on('data', function(d) {
-            body += d;
-        });
-        res.on('end', function() {
-            callback(JSON.parse(body));
-        });
-        res.on('error', function(e) {
-            callback(null);
-        });
-    });
-
-    //write the data
-    reqPost.write(payload);
-    reqPost.end();
-};
-
-
 
 
 exports.getEmailFromIdToken = getEmailFromIdToken;
 exports.getTokenFromCode = getTokenFromCode;
 exports.getAuthUrl = getAuthUrl;
+exports.getNewToken = getNewToken;

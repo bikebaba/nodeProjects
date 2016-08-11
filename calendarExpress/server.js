@@ -142,7 +142,11 @@ function mail(response, request) {
         response.end();
     }
 }
+function getNewToken(response, request) {
 
+    authHelper.getNewToken(request, response);
+
+}
 function getCalendar(response, request){
 
     var token = getValueFromCookie('courtsCalendarToken', request.headers.cookie);
@@ -203,7 +207,8 @@ function getCalendar(response, request){
 
 function createEvent(response, request){
     var http = require("https");
-
+    console.log("request.headers");
+    //console.log(request.headers);
     var options = {
         "method": "POST",
         "hostname": "outlook.office.com",
@@ -211,37 +216,64 @@ function createEvent(response, request){
         "path": "/api/v2.0/me/events",
         "headers": {
             "content-type": "application/json",
-            "authorization": "Bearer " + request.headers.Authorization
+            "authorization": "Bearer " + request.headers.authorization,
+            "cache-control": "no-cache"
         }
     };
 
+    console.log(options.headers.authorization);
     var req = http.request(options, function (res) {
         var chunks = [];
 
         res.on("data", function (chunk) {
             chunks.push(chunk);
+            console.log("AA");
         });
 
         res.on("end", function () {
             var body = Buffer.concat(chunks);
+            console.log("ZZ");
+            //console.log(chunks);
             console.log(body.toString());
+            response.writeHead(200, {"Content-Type": "Application/json"});
+            response.write(body.toString());
+            response.end();
         });
     });
 
-    req.write(JSON.stringify({ Subject: 'Discuss the Calendar REST API',
-        Body:
-        { ContentType: 'HTML',
-            Content: 'I think it will meet our requirements!' },
-        Start:
-        { DateTime: '2016-07-19T10:00:00',
-            TimeZone: 'Pacific Standard Time' },
-        End:
-        { DateTime: '2016-07-19T11:00:00',
-            TimeZone: 'Pacific Standard Time' },
-        Attendees:
-            [ { EmailAddress: { Address: 'shiv_bhuvanapalli@ao.uscourts.gov', Name: 'Shiv Bhuvanapalli' },
-                Type: 'Required' } ] }));
+    //req.write(JSON.stringify(request.body));
+    req.write(JSON.stringify(request.body));
     req.end();
+}
+
+function getNextGenCalendarData(response, request){
+
+    var request = require("request");
+
+    var options = { method: 'GET',
+        url: 'https://ijenie.ao.dcn/cms-ecf-cmdd-dev/d/cmecfservices/rest/schedulecomposite/calendarevent',
+        qs:
+        { TimeBlock__StartDate: '2016-05-04 23:00:00',
+            TimeBlock__EndDate: '2016-08-10 23:00:00',
+            CalendarEvent__CalendarEventType: [ 'Chambers', 'Court', 'Personal' ],
+            Calendar__RetrieveMinimalDataType: 'MinimalMonthlyView' },
+        headers:
+        { 'postman-token': 'ec643e6e-b7fa-6723-a397-aa86f0705ca9',
+            'cache-control': 'no-cache',
+            accept: 'application/json',
+            authorization: 'Basic U3lzYWRtaW4gUmllbWFuOlRlc3QyMDEzIQ==' } };
+
+    request(options, function (error, response, body) {
+        //if (error) throw new Error(error);
+        if (error) {
+            console.log(error);
+            console.log(response);
+            console.log(body);
+        };
+
+        console.log(body);
+    });
+
 }
 
 
@@ -286,3 +318,5 @@ exports.authorize = authorize;
 exports.home = home;
 exports.getEmail = getEmail;
 exports.hello = hello;
+exports.getNextGenCalendarData = getNextGenCalendarData;
+exports.getNewToken = getNewToken;
